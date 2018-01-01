@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddTime"></activity>
+        <activity android:name=".AddTime" />
+        <activity android:name=".ViewTime"></activity>
     </application>
 
 </manifest>

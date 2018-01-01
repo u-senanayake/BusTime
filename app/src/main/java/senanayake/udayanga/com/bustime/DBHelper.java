@@ -22,8 +22,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String keyId = "id";
     private static final String keyAddedPlace = "added_place";
-    private static final String keyFrom = "from";
-    private static final String keyTo = "to";
+    private static final String keyFrom = "start";
+    private static final String keyTo = "end";
     private static final String keyRoute = "route";
     private static final String keyTime = "time";
 
@@ -37,13 +37,15 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         Log.d(TAG, "Creating table...");
-        String createTable = "CREATE TABLE " + tableName + "(" +
-                keyId + " INTEGER PRIMARY KEY " +
-                keyAddedPlace + " TEXT " +
-                keyFrom + " TEXT " +
-                keyTo + " TEXT " +
+        String createTable = "CREATE TABLE " + tableName + " ( " +
+                keyId + " INTEGER PRIMARY KEY, " +
+                keyAddedPlace + " TEXT, " +
+                keyFrom + " TEXT, " +
+                keyTo + " TEXT, " +
+                keyTime + " TEXT, " +
                 keyRoute + " INTEGER)";
         sqLiteDatabase.execSQL(createTable);
+        Log.d(TAG, "Table successfully created");
     }
 
     @Override
@@ -53,6 +55,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void addRoute(Route route) {
+        Log.d(TAG, "Inserting new route to database");
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(keyAddedPlace, route.getPlaceAdded());
@@ -62,6 +65,8 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(keyTime, route.getTime());
         database.insert(tableName, null, values);
         database.close();
+        Log.d(TAG, "New route adding success");
+
     }
 
     public Route getRoute(int id) {
