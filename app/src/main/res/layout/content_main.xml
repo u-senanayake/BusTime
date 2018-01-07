@@ -13,41 +13,31 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <Spinner
+        <RadioGroup
+            android:id="@+id/radioSearchOption"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Spinner>
+            android:layout_height="wrap_content">
 
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Spinner>
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time Filter" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
+            <RadioButton
+                android:id="@+id/radioPlace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start Time" />
+                android:checked="true"
+                android:text="@string/radio_current_place" />
 
-            <Button
+            <RadioButton
+                android:id="@+id/radioFromTo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="End Time" />
-        </LinearLayout>
+                android:text="@string/radio_from_to" />
+        </RadioGroup>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Submit"
-            android:id="@+id/btnViewTime"/>
+
+        <include
+            android:id="@+id/displayLayout_1"
+            layout="@layout/search_options"></include>
 
     </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

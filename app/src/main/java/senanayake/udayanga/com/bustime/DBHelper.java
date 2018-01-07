@@ -9,6 +9,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Udayanga on 12/10/2017.
@@ -86,6 +87,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return route;
     }
 
+
     public ArrayList<HashMap<String, String>> getAllRoutes() {
         ArrayList<HashMap<String, String>> routeList;
         routeList = new ArrayList<HashMap<String, String>>();
@@ -112,7 +114,99 @@ public class DBHelper extends SQLiteOpenHelper {
         return routeList;
     }
 
+    public ArrayList<HashMap<String, String>> getRoutesByAddedLocation(String from, String to) {
+        ArrayList<HashMap<String, String>> routeList;
+        routeList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM " + tableName + " where " + keyAddedPlace + " = " +"'" + from+ "' ";
 
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put(keyId, cursor.getString(0));
+                map.put(keyAddedPlace, cursor.getString(1));
+                map.put(keyFrom, cursor.getString(2));
+                map.put(keyTo, cursor.getString(3));
+                map.put(keyRoute, cursor.getString(4));
+                map.put(keyTime, cursor.getString(5));
+
+                routeList.add(map);
+
+            } while (cursor.moveToNext());
+
+        }
+        return routeList;
+    }
+
+    public ArrayList<HashMap<String, String>> getRoutesByFromLocation(String from, String to) {
+        ArrayList<HashMap<String, String>> routeList;
+        routeList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT  * FROM " + tableName + " where " + keyFrom + " = " + "'" + from + "' ";
+
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put(keyId, cursor.getString(0));
+                map.put(keyAddedPlace, cursor.getString(1));
+                map.put(keyFrom, cursor.getString(2));
+                map.put(keyTo, cursor.getString(3));
+                map.put(keyRoute, cursor.getString(4));
+                map.put(keyTime, cursor.getString(5));
+
+                routeList.add(map);
+
+            } while (cursor.moveToNext());
+
+        }
+        return routeList;
+    }
+
+    public List<String> getAddedLocations() {
+        String selectQuery = "SELECT  * FROM " + tableName;
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        List<String> locations = new ArrayList<String>();
+        int i = 0;
+        while (cursor.moveToNext()) {
+            locations.add(cursor.getString(cursor.getColumnIndex(keyAddedPlace)));
+            i++;
+        }
+        return locations;
+    }
+
+    public List<String> getFromLocations() {
+        String selectQuery = "SELECT  * FROM " + tableName;
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        List<String> locations = new ArrayList<String>();
+        int i = 0;
+        while (cursor.moveToNext()) {
+            locations.add(cursor.getString(cursor.getColumnIndex(keyFrom)));
+            i++;
+        }
+        return locations;
+    }
+
+    public List<String> getToLocations() {
+        String selectQuery = "SELECT  * FROM " + tableName;
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        List<String> locations = new ArrayList<String>();
+        int i = 0;
+        while (cursor.moveToNext()) {
+            locations.add(cursor.getString(cursor.getColumnIndex(keyTo)));
+            i++;
+        }
+        return locations;
+    }
 
     public int updateRoute(Route route) {
         SQLiteDatabase db = this.getWritableDatabase();
