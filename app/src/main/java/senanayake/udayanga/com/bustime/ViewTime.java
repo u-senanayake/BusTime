@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -43,6 +45,8 @@ public class ViewTime extends AppCompatActivity {
                                 R.id.txtPlace, R.id.txtFrom, R.id.txtTo, R.id.txtRoute, R.id.txtTime});
                 ListView myList = findViewById(R.id.list_jason);
                 myList.setAdapter(adapter);
+                onListItemClick(myList);
+
             }
         } else if (radioId == 2131230839) {
             busList = helper.getRoutesByFromLocation(from, to);
@@ -55,8 +59,24 @@ public class ViewTime extends AppCompatActivity {
                                 R.id.txtPlace, R.id.txtFrom, R.id.txtTo, R.id.txtRoute, R.id.txtTime});
                 ListView myList = findViewById(R.id.list_jason);
                 myList.setAdapter(adapter);
+                onListItemClick(myList);
             }
         }
+
+    }
+
+    public void onListItemClick(ListView myList) {
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedItem = String.valueOf(adapterView.getItemAtPosition(i));
+                Intent intent = new Intent(ViewTime.this, EditRoute.class);
+                intent.putExtra("selectedItem", selectedItem);
+                startActivity(intent);
+//                Toast.makeText(ViewTime.this, selectedItem, Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 }

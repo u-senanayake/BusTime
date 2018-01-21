@@ -117,8 +117,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<HashMap<String, String>> getRoutesByAddedLocation(String from, String to) {
         ArrayList<HashMap<String, String>> routeList;
         routeList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM " + tableName + " where " + keyAddedPlace + " = " +"'" + from+ "' ";
-
+        String selectQuery = "SELECT  * FROM " + tableName + " where " + keyAddedPlace + " = " + "'" + from + "' ORDER BY " + keyTo + " ASC";
+        Log.d(TAG, "Executing Query " + selectQuery);
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
 
@@ -143,8 +143,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<HashMap<String, String>> getRoutesByFromLocation(String from, String to) {
         ArrayList<HashMap<String, String>> routeList;
         routeList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM " + tableName + " where " + keyFrom + " = " + "'" + from + "' ";
-
+        String selectQuery = "SELECT  * FROM " + tableName + " where " + keyFrom + " = " + "'" + from + "' ORDER BY " + keyTo + " ASC";
+        Log.d(TAG, "Executing Query " + selectQuery);
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
 
@@ -167,13 +167,14 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public List<String> getAddedLocations() {
-        String selectQuery = "SELECT  * FROM " + tableName;
+        String selectQuery = "SELECT  * FROM " + tableName + " GROUP BY " + keyAddedPlace;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
 
         List<String> locations = new ArrayList<String>();
         int i = 0;
         while (cursor.moveToNext()) {
+            Log.d(TAG, String.valueOf(cursor.getColumnIndex(keyAddedPlace)));
             locations.add(cursor.getString(cursor.getColumnIndex(keyAddedPlace)));
             i++;
         }
@@ -181,13 +182,14 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public List<String> getFromLocations() {
-        String selectQuery = "SELECT  * FROM " + tableName;
+        String selectQuery = "SELECT  * FROM " + tableName + " GROUP BY " + keyFrom;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
 
         List<String> locations = new ArrayList<String>();
         int i = 0;
         while (cursor.moveToNext()) {
+            Log.d(TAG, String.valueOf(cursor.getColumnIndex(keyFrom)));
             locations.add(cursor.getString(cursor.getColumnIndex(keyFrom)));
             i++;
         }
@@ -195,7 +197,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public List<String> getToLocations() {
-        String selectQuery = "SELECT  * FROM " + tableName;
+        String selectQuery = "SELECT  * FROM " + tableName  + " GROUP BY " + keyTo;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
 

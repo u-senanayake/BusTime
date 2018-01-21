@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddTime" />
-        <activity android:name=".ViewTime"></activity>
+        <activity android:name=".ViewTime" />
+        <activity android:name=".EditRoute"></activity>
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -64,5 +65,12 @@ public class AddTime extends AppCompatActivity {
         route.setRouteNo(Integer.parseInt(txtRoute.getText().toString()));
         route.setTime(txtTime.getText().toString());
         helper.addRoute(route);
+        Toast.makeText(AddTime.this, "Bus Route added successfully", Toast.LENGTH_SHORT).show();
+
+        txtPlaceAdded.setText("");
+        txtFrom.setText("");
+        txtTo.setText("");
+        txtRoute.setText("");
+        txtTime.setText("");
     }
 }
