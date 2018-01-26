@@ -15,9 +15,9 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnViewTime, btnStartTime, btnEndTime;
@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         fillSpinnerFrom(helper.getAddedLocations());
         fillSpinnerTo(helper.getToLocations());
+
+        spinnerTo = findViewById(R.id.spinnerTo);
+        spinnerTo.setEnabled(false);
 
 
 //        setEnabledFalseAll();
@@ -87,15 +90,20 @@ public class MainActivity extends AppCompatActivity {
         btnViewTime = findViewById(R.id.btnViewTime);
         btnViewTime.setEnabled(true);
         radioId = i;
-        if (i == 2131230840) {
+        RadioButton selected = findViewById(i);
+        String selectedName = selected.getText().toString();
+
+        Log.d(TAG, selectedName);
+
+        if (Objects.equals(selectedName, "My Location")) {
             fillSpinnerFrom(helper.getAddedLocations());
 
-        } else if (i == 2131230839) {
+        } else if (Objects.equals(selectedName, "From To")) {
             fillSpinnerFrom(helper.getFromLocations());
         }
 
-        Toast.makeText(MainActivity.this, String.valueOf(i), Toast.LENGTH_SHORT).show();
-        Log.d(TAG, String.valueOf(i));
+//        Toast.makeText(MainActivity.this, selectedName, Toast.LENGTH_SHORT).show();
+        Log.d(TAG, selectedName);
     }
 
     public void onViewTimeButtonClick() {
@@ -103,7 +111,11 @@ public class MainActivity extends AppCompatActivity {
         spinnerFrom = findViewById(R.id.spinnerFrom);
         spinnerTo = findViewById(R.id.spinnerTo);
         radioGroup = findViewById(R.id.radioSearchOption);
-        intent.putExtra("radioValue", radioGroup.getCheckedRadioButtonId());
+        int selectedRadioButtonID = radioGroup.getCheckedRadioButtonId();
+        RadioButton selected = findViewById(selectedRadioButtonID);
+        String selectedName = selected.getText().toString();
+
+        intent.putExtra("radioValue", selectedName);
         intent.putExtra("fromLocation", spinnerFrom.getSelectedItem().toString());
         intent.putExtra("toLocation", spinnerTo.getSelectedItem().toString());
         startActivity(intent);

@@ -13,23 +13,36 @@ public class EditRoute extends AppCompatActivity {
     String TAG = "Edit Route";
     String keyId = "id", keyPlaceAdded = "placeAdded", keyFrom = "from", keyTo = "to", keyRoute = "route", keyTime = "time";
     EditText editRoute, editLocation, editFrom, editTo, editTime;
-    Button updateRoute;
+    Button updateRoute, deleteRoute, cancelRoute;
     int id;
-    DBHelper helper= new DBHelper(this);
+    DBHelper helper = new DBHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_route);
         fillValues();
-        updateRoute= findViewById(R.id.updateRoute);
+        updateRoute = findViewById(R.id.updateRoute);
+        deleteRoute = findViewById(R.id.deleteRoute);
+        cancelRoute = findViewById(R.id.cancelRoute);
         updateRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateRoute();
             }
         });
-
+        deleteRoute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteRoute();
+            }
+        });
+        cancelRoute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void fillValues() {
@@ -54,7 +67,8 @@ public class EditRoute extends AppCompatActivity {
         editTime.setText(time);
 
     }
-    private void updateRoute(){
+
+    private void updateRoute() {
         Log.d(TAG, "Updating route");
         editRoute = findViewById(R.id.editRoute);
         editLocation = findViewById(R.id.editLocation);
@@ -62,7 +76,7 @@ public class EditRoute extends AppCompatActivity {
         editTo = findViewById(R.id.editTo);
         editTime = findViewById(R.id.editTime);
 
-        Route route= new Route();
+        Route route = new Route();
 
         route.setTime(String.valueOf(editTime.getText()));
         route.setId(id);
@@ -73,7 +87,18 @@ public class EditRoute extends AppCompatActivity {
 
         helper.updateRoute(route);
         Toast.makeText(this, "Route updating success", Toast.LENGTH_SHORT).show();
+        goHome();
     }
 
+    private void deleteRoute() {
+        Log.d(TAG, "Updating route");
+        helper.deleteContact(id);
+        Toast.makeText(this, "Route deleting success", Toast.LENGTH_SHORT).show();
+        goHome();
+    }
 
+    private void goHome(){
+        Intent intent= new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }

@@ -23,20 +23,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="@string/radio_current_place" />
+                android:text="@string/radio_current_place"
+                android:textSize="30dp"/>
 
             <RadioButton
                 android:id="@+id/radioFromTo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/radio_from_to" />
+                android:text="@string/radio_from_to"
+                android:textSize="30dp"/>
         </RadioGroup>
 
 
-        <include
-            android:id="@+id/displayLayout_1"
-            layout="@layout/search_options"></include>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <Spinner
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/spinnerFrom" />
+
+            <Spinner
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/spinnerTo" />
+
+            <Button
+                android:layout_marginTop="50dp"
+                android:id="@+id/btnViewTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit" />
+
+        </LinearLayout>
     </LinearLayout>
 
 

@@ -149,8 +149,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 route.setPlaceAdded(cursor.getString(1));
                 route.setFrom(cursor.getString(2));
                 route.setTo(cursor.getString(3));
-                route.setRouteNo(cursor.getInt(4));
-                route.setTime(cursor.getString(5));
+                route.setRouteNo(cursor.getInt(5));
+                route.setTime(cursor.getString(4));
                 routeList.add(route);
             } while (cursor.moveToNext());
         }
@@ -217,10 +217,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(route.getId())});
     }
 
-    public void deleteContact(Route route) {
+    public void deleteContact(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(tableName, keyId + " = ?",
-                new String[]{String.valueOf(route.getId())});
+                new String[]{String.valueOf(id)});
         db.close();
     }
 }

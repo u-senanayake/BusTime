@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ViewTime extends AppCompatActivity {
     DBHelper helper = new DBHelper(this);
@@ -21,7 +22,7 @@ public class ViewTime extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_time);
         Intent intent = getIntent();
-        int radioId = intent.getIntExtra("radioValue", 0);
+        String radioId = intent.getStringExtra("radioValue");
         String fromLocation = intent.getStringExtra("fromLocation");
         String toLocation = intent.getStringExtra("toLocation");
         Log.d(TAG, "Searching routs from " + fromLocation + " to " + toLocation + String.valueOf(radioId));
@@ -35,11 +36,11 @@ public class ViewTime extends AppCompatActivity {
 
     }
 
-    private ArrayList<Route> getData(int radioId, String from, String to) {
+    private ArrayList<Route> getData(String radioId, String from, String to) {
         ArrayList<Route> routes = helper.getAllRoutes();
-        if (radioId == 2131230840) {
+        if (Objects.equals(radioId, "My Location")) {
             routes = helper.getRoutesByAddedLocation(from, to);
-        } else if (radioId == 2131230839) {
+        } else if (Objects.equals(radioId, "From To")) {
             routes = helper.getRoutesByFromLocation(from, to);
         }
         return routes;

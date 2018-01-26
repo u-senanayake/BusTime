@@ -25,8 +25,9 @@
                 style="@style/editRouteItemName"/>
 
             <EditText
+                android:id="@+id/editRoute"
                 style="@style/editRouteItem"
-                android:id="@+id/editRoute"/>
+                android:inputType="number" />
         </LinearLayout>
 
         <LinearLayout
@@ -44,8 +45,9 @@
                 android:text="Added Location" />
 
             <EditText
+                android:id="@+id/editLocation"
                 style="@style/editRouteItem"
-                android:id="@+id/editLocation"/>
+                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,8 +65,9 @@
                 android:text="From" />
 
             <EditText
+                android:id="@+id/editFrom"
                 style="@style/editRouteItem"
-                android:id="@+id/editFrom"/>
+                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout
@@ -82,8 +85,9 @@
                 android:text="To" />
 
             <EditText
+                android:id="@+id/editTo"
                 style="@style/editRouteItem"
-                android:id="@+id/editTo"/>
+                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,8 +105,9 @@
                 android:text="Time" />
 
             <EditText
+                android:id="@+id/editTime"
                 style="@style/editRouteItem"
-                android:id="@+id/editTime"/>
+                android:inputType="time" />
         </LinearLayout>
 
         <LinearLayout
@@ -124,13 +129,15 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Delete"
-                android:background="#ec6b6b"/>
+                android:background="#ec6b6b"
+                android:id="@+id/deleteRoute"/>
 
             <Button
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Cancel"
-                android:background="#4458e77c"/>
+                android:background="#4458e77c"
+                android:id="@+id/cancelRoute"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

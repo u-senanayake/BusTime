@@ -10,13 +10,15 @@
 
         <Spinner
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinnerFrom"></Spinner>
+            android:layout_height="50dp"
+            android:id="@+id/spinnerFrom"
+            ></Spinner>
 
         <Spinner
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinnerTo"></Spinner>
+            android:layout_height="50dp"
+            android:id="@+id/spinnerTo"
+            ></Spinner>
 
         <Button
             android:id="@+id/btnViewTime"
