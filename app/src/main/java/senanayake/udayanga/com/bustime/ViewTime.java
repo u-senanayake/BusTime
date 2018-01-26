@@ -6,16 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ViewTime extends AppCompatActivity {
     DBHelper helper = new DBHelper(this);
     String TAG = "View time";
+    private DataAdapter adapter;
+    String keyId = "id", keyPlaceAdded = "placeAdded", keyFrom = "from", keyTo = "to", keyRoute = "route", keyTime = "time";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,52 +27,39 @@ public class ViewTime extends AppCompatActivity {
         Log.d(TAG, "Searching routs from " + fromLocation + " to " + toLocation + String.valueOf(radioId));
 //        Toast.makeText(ViewTime.this, String.valueOf(radioId), Toast.LENGTH_SHORT).show();
 
-        getRoutes(radioId, fromLocation, toLocation);
+//        getRoutes(radioId, fromLocation, toLocation);
+        adapter = new DataAdapter(this, getData(radioId, fromLocation, toLocation));
+        ListView myList = findViewById(R.id.list_jason);
+        myList.setAdapter(adapter);
+        onListItemClick(myList);
 
     }
 
-    public void getRoutes(int radioId, String from, String to) {
-        ArrayList<HashMap<String, String>> busList = null;
+    private ArrayList<Route> getData(int radioId, String from, String to) {
+        ArrayList<Route> routes = helper.getAllRoutes();
         if (radioId == 2131230840) {
-            busList = helper.getRoutesByAddedLocation(from, to);
-            if (busList.size() != 0) {
-                ListAdapter adapter = new SimpleAdapter(this, busList,
-                        R.layout.bus_list,
-                        new String[]{
-                                "added_place", "start", "end", "route", "time"},
-                        new int[]{
-                                R.id.txtPlace, R.id.txtFrom, R.id.txtTo, R.id.txtRoute, R.id.txtTime});
-                ListView myList = findViewById(R.id.list_jason);
-                myList.setAdapter(adapter);
-                onListItemClick(myList);
-
-            }
+            routes = helper.getRoutesByAddedLocation(from, to);
         } else if (radioId == 2131230839) {
-            busList = helper.getRoutesByFromLocation(from, to);
-            if (busList.size() != 0) {
-                ListAdapter adapter = new SimpleAdapter(this, busList,
-                        R.layout.bus_list,
-                        new String[]{
-                                "added_place", "start", "end", "route", "time"},
-                        new int[]{
-                                R.id.txtPlace, R.id.txtFrom, R.id.txtTo, R.id.txtRoute, R.id.txtTime});
-                ListView myList = findViewById(R.id.list_jason);
-                myList.setAdapter(adapter);
-                onListItemClick(myList);
-            }
+            routes = helper.getRoutesByFromLocation(from, to);
         }
-
+        return routes;
     }
 
     public void onListItemClick(ListView myList) {
         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String selectedItem = String.valueOf(adapterView.getItemAtPosition(i));
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String selectedItem = String.valueOf(adapterView.getItemAtPosition(position));
+                Route route = (Route) adapter.getItem(position);
                 Intent intent = new Intent(ViewTime.this, EditRoute.class);
-                intent.putExtra("selectedItem", selectedItem);
+                intent.putExtra(keyId, route.getId());
+                intent.putExtra(keyPlaceAdded, route.getPlaceAdded());
+                intent.putExtra(keyFrom, route.getFrom());
+                intent.putExtra(keyTo, route.getTo());
+                intent.putExtra(keyRoute, route.getRouteNo());
+                intent.putExtra(keyTime, route.getTime());
+
                 startActivity(intent);
-//                Toast.makeText(ViewTime.this, selectedItem, Toast.LENGTH_SHORT).show();
             }
         });
 

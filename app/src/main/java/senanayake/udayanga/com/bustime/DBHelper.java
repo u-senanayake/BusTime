@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -88,9 +87,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<HashMap<String, String>> getAllRoutes() {
-        ArrayList<HashMap<String, String>> routeList;
-        routeList = new ArrayList<HashMap<String, String>>();
+    public ArrayList<Route> getAllRoutes() {
+        ArrayList<Route> routeList = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + tableName;
 
         SQLiteDatabase database = this.getWritableDatabase();
@@ -98,15 +96,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put(keyId, cursor.getString(0));
-                map.put(keyAddedPlace, cursor.getString(1));
-                map.put(keyFrom, cursor.getString(2));
-                map.put(keyTo, cursor.getString(3));
-                map.put(keyRoute, cursor.getString(4));
-                map.put(keyTime, cursor.getString(5));
-
-                routeList.add(map);
+                Route route = new Route();
+                route.setId(cursor.getInt(0));
+                route.setPlaceAdded(cursor.getString(1));
+                route.setFrom(cursor.getString(2));
+                route.setTo(cursor.getString(3));
+                route.setRouteNo(cursor.getInt(5));
+                route.setTime(cursor.getString(4));
+                routeList.add(route);
 
             } while (cursor.moveToNext());
 
@@ -114,9 +111,8 @@ public class DBHelper extends SQLiteOpenHelper {
         return routeList;
     }
 
-    public ArrayList<HashMap<String, String>> getRoutesByAddedLocation(String from, String to) {
-        ArrayList<HashMap<String, String>> routeList;
-        routeList = new ArrayList<HashMap<String, String>>();
+    public ArrayList<Route> getRoutesByAddedLocation(String from, String to) {
+        ArrayList<Route> routeList = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + tableName + " where " + keyAddedPlace + " = " + "'" + from + "' ORDER BY " + keyTo + " ASC";
         Log.d(TAG, "Executing Query " + selectQuery);
         SQLiteDatabase database = this.getWritableDatabase();
@@ -124,15 +120,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put(keyId, cursor.getString(0));
-                map.put(keyAddedPlace, cursor.getString(1));
-                map.put(keyFrom, cursor.getString(2));
-                map.put(keyTo, cursor.getString(3));
-                map.put(keyRoute, cursor.getString(4));
-                map.put(keyTime, cursor.getString(5));
-
-                routeList.add(map);
+                Route route = new Route();
+                route.setId(cursor.getInt(0));
+                route.setPlaceAdded(cursor.getString(1));
+                route.setFrom(cursor.getString(2));
+                route.setTo(cursor.getString(3));
+                route.setRouteNo(cursor.getInt(5));
+                route.setTime(cursor.getString(4));
+                routeList.add(route);
 
             } while (cursor.moveToNext());
 
@@ -140,9 +135,8 @@ public class DBHelper extends SQLiteOpenHelper {
         return routeList;
     }
 
-    public ArrayList<HashMap<String, String>> getRoutesByFromLocation(String from, String to) {
-        ArrayList<HashMap<String, String>> routeList;
-        routeList = new ArrayList<HashMap<String, String>>();
+    public ArrayList<Route> getRoutesByFromLocation(String from, String to) {
+        ArrayList<Route> routeList = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + tableName + " where " + keyFrom + " = " + "'" + from + "' ORDER BY " + keyTo + " ASC";
         Log.d(TAG, "Executing Query " + selectQuery);
         SQLiteDatabase database = this.getWritableDatabase();
@@ -150,18 +144,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put(keyId, cursor.getString(0));
-                map.put(keyAddedPlace, cursor.getString(1));
-                map.put(keyFrom, cursor.getString(2));
-                map.put(keyTo, cursor.getString(3));
-                map.put(keyRoute, cursor.getString(4));
-                map.put(keyTime, cursor.getString(5));
-
-                routeList.add(map);
-
+                Route route = new Route();
+                route.setId(cursor.getInt(0));
+                route.setPlaceAdded(cursor.getString(1));
+                route.setFrom(cursor.getString(2));
+                route.setTo(cursor.getString(3));
+                route.setRouteNo(cursor.getInt(4));
+                route.setTime(cursor.getString(5));
+                routeList.add(route);
             } while (cursor.moveToNext());
-
         }
         return routeList;
     }
@@ -197,7 +188,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public List<String> getToLocations() {
-        String selectQuery = "SELECT  * FROM " + tableName  + " GROUP BY " + keyTo;
+        String selectQuery = "SELECT  * FROM " + tableName + " GROUP BY " + keyTo;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
 
