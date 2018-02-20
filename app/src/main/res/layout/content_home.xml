@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="senanayake.udayanga.com.bustime.activity.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context="senanayake.udayanga.com.bustime.activity.HomeActivity"
+    tools:showIn="@layout/app_bar_home">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,45 +24,43 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="@string/radio_current_place"
-                android:textSize="30dp"/>
+                android:textSize="30dp" />
 
             <RadioButton
                 android:id="@+id/radioFromTo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/radio_from_to"
-                android:textSize="30dp"/>
+                android:textSize="30dp" />
         </RadioGroup>
 
 
         <LinearLayout
-            android:layout_marginTop="20dp"
             android:id="@+id/layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <Spinner
-                android:layout_marginTop="10dp"
+                android:id="@+id/spinnerFrom"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/spinnerFrom" />
+                android:layout_marginTop="10dp" />
 
             <Spinner
-                android:layout_marginTop="10dp"
+                android:id="@+id/spinnerTo"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/spinnerTo" />
+                android:layout_marginTop="10dp" />
 
             <Button
-                android:layout_marginTop="50dp"
                 android:id="@+id/btnViewTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
                 android:text="Submit" />
 
         </LinearLayout>
     </LinearLayout>
-
-
 </android.support.constraint.ConstraintLayout>

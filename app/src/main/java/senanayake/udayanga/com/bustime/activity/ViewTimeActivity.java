@@ -3,7 +3,10 @@ package senanayake.udayanga.com.bustime.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -11,9 +14,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import senanayake.udayanga.com.bustime.R;
 import senanayake.udayanga.com.bustime.adapter.DBHelper;
 import senanayake.udayanga.com.bustime.adapter.DataAdapter;
-import senanayake.udayanga.com.bustime.R;
 import senanayake.udayanga.com.bustime.model.Route;
 
 public class ViewTimeActivity extends AppCompatActivity {
@@ -21,7 +24,7 @@ public class ViewTimeActivity extends AppCompatActivity {
     String TAG = "View time";
     private DataAdapter adapter;
     String keyId = "id", keyPlaceAdded = "placeAdded", keyFrom = "from", keyTo = "to", keyRoute = "route", keyTime = "time";
-
+    private Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,11 @@ public class ViewTimeActivity extends AppCompatActivity {
 //        Toast.makeText(ViewTimeActivity.this, String.valueOf(radioId), Toast.LENGTH_SHORT).show();
 
 //        getRoutes(radioId, fromLocation, toLocation);
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         adapter = new DataAdapter(this, getData(radioId, fromLocation, toLocation));
         ListView myList = findViewById(R.id.list_jason);
         myList.setAdapter(adapter);
@@ -70,5 +78,26 @@ public class ViewTimeActivity extends AppCompatActivity {
         });
 
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_back, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
