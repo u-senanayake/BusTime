@@ -9,8 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
-        <activity android:name=".activity.AddTimeActivity" />
-        <activity android:name=".activity.ViewTimeActivity" />
         <activity android:name=".activity.EditRouteActivity" />
         <activity
             android:name=".activity.HomeActivity"
@@ -21,6 +19,24 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/title_activity_main"
+            android:parentActivityName=".activity.HomeActivity"
+            android:theme="@style/MyMaterialTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="senanayake.udayanga.com.bustime.activity.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".activity.AddTimeActivity"
+            android:label="@string/title_activity_main2"
+            android:parentActivityName=".activity.HomeActivity"
+            android:theme="@style/MyMaterialTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="senanayake.udayanga.com.bustime.activity.HomeActivity" />
         </activity>
     </application>
 

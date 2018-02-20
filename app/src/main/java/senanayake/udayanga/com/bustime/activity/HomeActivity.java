@@ -82,7 +82,7 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -121,7 +121,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     public void onViewTimeButtonClick() {
-        Intent intent = new Intent(HomeActivity.this, ViewTimeActivity.class);
+        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
         spinnerFrom = findViewById(R.id.spinnerFrom);
         spinnerTo = findViewById(R.id.spinnerTo);
         radioGroup = findViewById(R.id.radioSearchOption);

@@ -2,11 +2,11 @@ package senanayake.udayanga.com.bustime.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -19,36 +19,43 @@ import senanayake.udayanga.com.bustime.adapter.DBHelper;
 import senanayake.udayanga.com.bustime.adapter.DataAdapter;
 import senanayake.udayanga.com.bustime.model.Route;
 
-public class ViewTimeActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     DBHelper helper = new DBHelper(this);
     String TAG = "View time";
     private DataAdapter adapter;
     String keyId = "id", keyPlaceAdded = "placeAdded", keyFrom = "from", keyTo = "to", keyRoute = "route", keyTime = "time";
-    private Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_time);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         Intent intent = getIntent();
         String radioId = intent.getStringExtra("radioValue");
         String fromLocation = intent.getStringExtra("fromLocation");
         String toLocation = intent.getStringExtra("toLocation");
         Log.d(TAG, "Searching routs from " + fromLocation + " to " + toLocation + String.valueOf(radioId));
-//        Toast.makeText(ViewTimeActivity.this, String.valueOf(radioId), Toast.LENGTH_SHORT).show();
 
 //        getRoutes(radioId, fromLocation, toLocation);
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         adapter = new DataAdapter(this, getData(radioId, fromLocation, toLocation));
         ListView myList = findViewById(R.id.list_jason);
         myList.setAdapter(adapter);
         onListItemClick(myList);
 
-    }
 
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
     private ArrayList<Route> getData(String radioId, String from, String to) {
         ArrayList<Route> routes = helper.getAllRoutes();
         if (Objects.equals(radioId, "My Location")) {
@@ -65,7 +72,7 @@ public class ViewTimeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String selectedItem = String.valueOf(adapterView.getItemAtPosition(position));
                 Route route = (Route) adapter.getItem(position);
-                Intent intent = new Intent(ViewTimeActivity.this, EditRouteActivity.class);
+                Intent intent = new Intent(MainActivity.this, EditRouteActivity.class);
                 intent.putExtra(keyId, route.getId());
                 intent.putExtra(keyPlaceAdded, route.getPlaceAdded());
                 intent.putExtra(keyFrom, route.getFrom());
@@ -78,26 +85,5 @@ public class ViewTimeActivity extends AppCompatActivity {
         });
 
 
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_back, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

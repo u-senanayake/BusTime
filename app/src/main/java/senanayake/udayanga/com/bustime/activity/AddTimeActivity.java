@@ -2,7 +2,10 @@ package senanayake.udayanga.com.bustime.activity;
 
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -12,8 +15,8 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-import senanayake.udayanga.com.bustime.adapter.DBHelper;
 import senanayake.udayanga.com.bustime.R;
+import senanayake.udayanga.com.bustime.adapter.DBHelper;
 import senanayake.udayanga.com.bustime.model.Route;
 
 public class AddTimeActivity extends AppCompatActivity {
@@ -23,11 +26,13 @@ public class AddTimeActivity extends AppCompatActivity {
     int mHour, mMinute;
 
     DBHelper helper = new DBHelper(this);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_time);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         timePicker = findViewById(R.id.timePicker);
         txtTime = findViewById(R.id.textTime);
         timePicker.setOnClickListener(new View.OnClickListener() {
@@ -53,8 +58,17 @@ public class AddTimeActivity extends AppCompatActivity {
                 addRoute();
             }
         });
-    }
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
     public void addRoute() {
         txtPlaceAdded = findViewById(R.id.txtPlaceAdded);
         txtFrom = findViewById(R.id.txtFrom);
