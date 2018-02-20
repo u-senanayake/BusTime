@@ -1,4 +1,4 @@
-package senanayake.udayanga.com.bustime;
+package senanayake.udayanga.com.bustime.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import senanayake.udayanga.com.bustime.R;
+import senanayake.udayanga.com.bustime.model.Route;
 
 /**
  * Created by Udayanga on 1/26/2018.

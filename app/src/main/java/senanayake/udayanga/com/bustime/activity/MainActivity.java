@@ -1,4 +1,4 @@
-package senanayake.udayanga.com.bustime;
+package senanayake.udayanga.com.bustime.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,9 @@ import android.widget.Spinner;
 
 import java.util.List;
 import java.util.Objects;
+
+import senanayake.udayanga.com.bustime.R;
+import senanayake.udayanga.com.bustime.adapter.DBHelper;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnViewTime, btnStartTime, btnEndTime;
@@ -41,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
         spinnerTo = findViewById(R.id.spinnerTo);
         spinnerTo.setEnabled(false);
-
 
 //        setEnabledFalseAll();
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onViewTimeButtonClick() {
-        Intent intent = new Intent(MainActivity.this, ViewTime.class);
+        Intent intent = new Intent(MainActivity.this, ViewTimeActivity.class);
         spinnerFrom = findViewById(R.id.spinnerFrom);
         spinnerTo = findViewById(R.id.spinnerTo);
         radioGroup = findViewById(R.id.radioSearchOption);
@@ -122,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onAddTimeClick() {
-        Intent intent = new Intent(MainActivity.this, AddTime.class);
+        Intent intent = new Intent(MainActivity.this, AddTimeActivity.class);
         startActivity(intent);
     }
 
@@ -147,4 +149,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

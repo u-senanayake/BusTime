@@ -1,4 +1,4 @@
-package senanayake.udayanga.com.bustime;
+package senanayake.udayanga.com.bustime.model;
 
 /**
  * Created by Udayanga on 12/10/2017.

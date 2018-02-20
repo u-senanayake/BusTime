@@ -1,4 +1,4 @@
-package senanayake.udayanga.com.bustime;
+package senanayake.udayanga.com.bustime.adapter;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import senanayake.udayanga.com.bustime.model.Route;
 
 /**
  * Created by Udayanga on 12/10/2017.

@@ -1,4 +1,4 @@
-package senanayake.udayanga.com.bustime;
+package senanayake.udayanga.com.bustime.activity;
 
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -12,7 +12,11 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-public class AddTime extends AppCompatActivity {
+import senanayake.udayanga.com.bustime.adapter.DBHelper;
+import senanayake.udayanga.com.bustime.R;
+import senanayake.udayanga.com.bustime.model.Route;
+
+public class AddTimeActivity extends AppCompatActivity {
     Button timePicker, btnSubmit;
     EditText txtTime, txtPlaceAdded, txtFrom, txtTo, txtRoute;
     CheckBox checkHoliday;
@@ -33,7 +37,7 @@ public class AddTime extends AppCompatActivity {
                 final Calendar calendar = Calendar.getInstance();
                 mHour = calendar.get(Calendar.HOUR_OF_DAY);
                 mMinute = calendar.get(Calendar.MINUTE);
-                TimePickerDialog timePickerDialog = new TimePickerDialog(AddTime.this, new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(AddTimeActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                         txtTime.setText(hour + ":" + minute);
@@ -65,7 +69,7 @@ public class AddTime extends AppCompatActivity {
         route.setRouteNo(Integer.parseInt(txtRoute.getText().toString()));
         route.setTime(txtTime.getText().toString());
         helper.addRoute(route);
-        Toast.makeText(AddTime.this, "Bus Route added successfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AddTimeActivity.this, "Bus Route added successfully", Toast.LENGTH_SHORT).show();
 
         txtPlaceAdded.setText("");
         txtFrom.setText("");

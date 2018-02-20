@@ -1,4 +1,4 @@
-package senanayake.udayanga.com.bustime;
+package senanayake.udayanga.com.bustime.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,12 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ViewTime extends AppCompatActivity {
+import senanayake.udayanga.com.bustime.adapter.DBHelper;
+import senanayake.udayanga.com.bustime.adapter.DataAdapter;
+import senanayake.udayanga.com.bustime.R;
+import senanayake.udayanga.com.bustime.model.Route;
+
+public class ViewTimeActivity extends AppCompatActivity {
     DBHelper helper = new DBHelper(this);
     String TAG = "View time";
     private DataAdapter adapter;
@@ -26,7 +31,7 @@ public class ViewTime extends AppCompatActivity {
         String fromLocation = intent.getStringExtra("fromLocation");
         String toLocation = intent.getStringExtra("toLocation");
         Log.d(TAG, "Searching routs from " + fromLocation + " to " + toLocation + String.valueOf(radioId));
-//        Toast.makeText(ViewTime.this, String.valueOf(radioId), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(ViewTimeActivity.this, String.valueOf(radioId), Toast.LENGTH_SHORT).show();
 
 //        getRoutes(radioId, fromLocation, toLocation);
         adapter = new DataAdapter(this, getData(radioId, fromLocation, toLocation));
@@ -52,7 +57,7 @@ public class ViewTime extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String selectedItem = String.valueOf(adapterView.getItemAtPosition(position));
                 Route route = (Route) adapter.getItem(position);
-                Intent intent = new Intent(ViewTime.this, EditRoute.class);
+                Intent intent = new Intent(ViewTimeActivity.this, EditRouteActivity.class);
                 intent.putExtra(keyId, route.getId());
                 intent.putExtra(keyPlaceAdded, route.getPlaceAdded());
                 intent.putExtra(keyFrom, route.getFrom());

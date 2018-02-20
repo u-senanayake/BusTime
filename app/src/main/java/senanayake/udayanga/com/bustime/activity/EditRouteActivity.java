@@ -1,4 +1,4 @@
-package senanayake.udayanga.com.bustime;
+package senanayake.udayanga.com.bustime.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class EditRoute extends AppCompatActivity {
+import senanayake.udayanga.com.bustime.adapter.DBHelper;
+import senanayake.udayanga.com.bustime.R;
+import senanayake.udayanga.com.bustime.model.Route;
+
+public class EditRouteActivity extends AppCompatActivity {
     String TAG = "Edit Route";
     String keyId = "id", keyPlaceAdded = "placeAdded", keyFrom = "from", keyTo = "to", keyRoute = "route", keyTime = "time";
     EditText editRoute, editLocation, editFrom, editTo, editTime;
