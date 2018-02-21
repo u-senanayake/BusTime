@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="senanayake.udayanga.com.bustime.activity.HomeActivity"
     tools:showIn="@layout/app_bar_home">
@@ -20,24 +21,62 @@
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <Spinner
-                android:id="@+id/spinnerFrom"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp" />
 
-            <Spinner
-                android:id="@+id/spinnerTo"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp" />
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:padding="5dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/textFrom"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    tools:ignore="LabelFor" />
+                <Button
+                    android:id="@+id/clear_from"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:background="@drawable/ic_delete"
+                    tools:ignore="RtlHardcoded" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:padding="5dp">
+                <AutoCompleteTextView
+                    android:id="@+id/textTo"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    tools:ignore="LabelFor" />
+                <Button
+                    android:id="@+id/clear_to"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:background="@drawable/ic_delete"
+                    tools:ignore="RtlHardcoded" />
+            </FrameLayout>
 
             <Button
                 android:id="@+id/btnViewTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
-                android:text="Submit" />
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:text="Submit"
+                android:textAlignment="center" />
 
         </LinearLayout>
     </LinearLayout>

@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        String radioId = intent.getStringExtra("radioValue");
+        String radioId = intent.getStringExtra("selectedName");
         String fromLocation = intent.getStringExtra("fromLocation");
         String toLocation = intent.getStringExtra("toLocation");
         Log.d(TAG, "Searching routs from " + fromLocation + " to " + toLocation + String.valueOf(radioId));

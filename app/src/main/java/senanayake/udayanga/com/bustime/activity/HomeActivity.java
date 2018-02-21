@@ -15,9 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Spinner;
 
 import java.util.List;
 
@@ -28,7 +28,8 @@ public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private Button btnViewTime, btnStartTime, btnEndTime;
     private CheckBox checkTimeFilter;
-    Spinner spinnerFrom, spinnerTo;
+    AutoCompleteTextView textFrom, textTo;
+    Button clear_from, clear_to;
 
     private static final String TAG = "Main Activity";
     DBHelper helper = new DBHelper(this);
@@ -67,8 +68,6 @@ public class HomeActivity extends AppCompatActivity
         fillSpinnerFrom(helper.getAddedLocations());
         fillSpinnerTo(helper.getToLocations());
 
-        spinnerTo = findViewById(R.id.spinnerTo);
-        spinnerTo.setEnabled(false);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -94,31 +93,33 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        clearField();
     }
 
     public void fillSpinnerFrom(List<String> locations) {
-        spinnerFrom = findViewById(R.id.spinnerFrom);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, locations);
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerFrom.setAdapter(dataAdapter);
+        textFrom = findViewById(R.id.textFrom);
+        textFrom.setAdapter(dataAdapter);
+
     }
 
     public void fillSpinnerTo(List<String> locations) {
-        spinnerTo = findViewById(R.id.spinnerTo);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTo.setAdapter(dataAdapter);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, locations);
+        textTo = findViewById(R.id.textTo);
+        textTo.setAdapter(dataAdapter);
+
     }
 
     public void onViewTimeButtonClick() {
         Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-        spinnerFrom = findViewById(R.id.spinnerFrom);
-        spinnerTo = findViewById(R.id.spinnerTo);
+        textFrom = findViewById(R.id.textFrom);
+        textTo = findViewById(R.id.textTo);
 
-        intent.putExtra("radioValue", selectedName);
-        intent.putExtra("fromLocation", spinnerFrom.getSelectedItem().toString());
-        intent.putExtra("toLocation", spinnerTo.getSelectedItem().toString());
+        intent.putExtra("selectedName", selectedName);
+        intent.putExtra("fromLocation", textFrom.getText().toString());
+        intent.putExtra("toLocation", textTo.getText().toString());
         startActivity(intent);
     }
 
@@ -127,6 +128,24 @@ public class HomeActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    public void clearField() {
+        clear_from = findViewById(R.id.clear_from);
+        clear_to = findViewById(R.id.clear_to);
+        textFrom = findViewById(R.id.textFrom);
+        textTo = findViewById(R.id.textTo);
+        clear_from.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textFrom.setText("");
+            }
+        });
+        clear_to.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textTo.setText("");
+            }
+        });
+    }
 
     @Override
     public void onBackPressed() {
