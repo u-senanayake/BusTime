@@ -3,6 +3,7 @@ package senanayake.udayanga.com.bustime.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,19 +11,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import java.util.List;
-import java.util.Objects;
 
 import senanayake.udayanga.com.bustime.R;
 import senanayake.udayanga.com.bustime.adapter.DBHelper;
@@ -32,17 +29,37 @@ public class HomeActivity extends AppCompatActivity
     private Button btnViewTime, btnStartTime, btnEndTime;
     private CheckBox checkTimeFilter;
     Spinner spinnerFrom, spinnerTo;
-    private RadioGroup radioGroup;
-    private RadioButton place, from;
-    int radioId = 0;
 
     private static final String TAG = "Main Activity";
     DBHelper helper = new DBHelper(this);
+    String selectedName = "My Location";
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_my_location:
+                    fillSpinnerFrom(helper.getAddedLocations());
+                    selectedName = "My Location";
+                    return true;
+                case R.id.navigation_from:
+                    fillSpinnerFrom(helper.getFromLocations());
+                    selectedName = "From To";
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,13 +86,6 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-        radioGroup = findViewById(R.id.radioSearchOption);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                onRadioButtonChanged(i);
-            }
-        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -101,33 +111,10 @@ public class HomeActivity extends AppCompatActivity
         spinnerTo.setAdapter(dataAdapter);
     }
 
-    public void onRadioButtonChanged(int i) {
-        btnViewTime = findViewById(R.id.btnViewTime);
-        btnViewTime.setEnabled(true);
-        radioId = i;
-        RadioButton selected = findViewById(i);
-        String selectedName = selected.getText().toString();
-
-        Log.d(TAG, selectedName);
-
-        if (Objects.equals(selectedName, "My Location")) {
-            fillSpinnerFrom(helper.getAddedLocations());
-
-        } else if (Objects.equals(selectedName, "From To")) {
-            fillSpinnerFrom(helper.getFromLocations());
-        }
-
-        Log.d(TAG, selectedName);
-    }
-
     public void onViewTimeButtonClick() {
         Intent intent = new Intent(HomeActivity.this, MainActivity.class);
         spinnerFrom = findViewById(R.id.spinnerFrom);
         spinnerTo = findViewById(R.id.spinnerTo);
-        radioGroup = findViewById(R.id.radioSearchOption);
-        int selectedRadioButtonID = radioGroup.getCheckedRadioButtonId();
-        RadioButton selected = findViewById(selectedRadioButtonID);
-        String selectedName = selected.getText().toString();
 
         intent.putExtra("radioValue", selectedName);
         intent.putExtra("fromLocation", spinnerFrom.getSelectedItem().toString());
