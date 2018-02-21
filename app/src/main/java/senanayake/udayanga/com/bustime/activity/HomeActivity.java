@@ -160,7 +160,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+//        getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
 
@@ -185,17 +185,19 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_export) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_import) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_upload) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_settings) {
+            Intent intent= new Intent(HomeActivity.this, SettingsActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_rate) {
 
         }
 

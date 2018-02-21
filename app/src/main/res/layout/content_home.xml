@@ -9,6 +9,7 @@
     tools:context="senanayake.udayanga.com.bustime.activity.HomeActivity"
     tools:showIn="@layout/app_bar_home">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,21 +36,25 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor"
+                    android:hint="@string/user_location"/>
+
                 <Button
                     android:id="@+id/clear_from"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_marginRight="20dp"
                     android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="20dp"
                     android:background="@drawable/ic_delete"
                     tools:ignore="RtlHardcoded" />
             </FrameLayout>
+
             <FrameLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
                 android:padding="5dp">
+
                 <AutoCompleteTextView
                     android:id="@+id/textTo"
                     android:layout_width="match_parent"
@@ -57,13 +62,15 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor"
+                    android:hint="@string/user_to"/>
+
                 <Button
                     android:id="@+id/clear_to"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_marginRight="20dp"
                     android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="20dp"
                     android:background="@drawable/ic_delete"
                     tools:ignore="RtlHardcoded" />
             </FrameLayout>
@@ -80,6 +87,7 @@
 
         </LinearLayout>
     </LinearLayout>
+
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

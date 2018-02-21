@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="senanayake.udayanga.com.bustime">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,7 +15,7 @@
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/MyMaterialTheme" >
+            android:theme="@style/MyMaterialTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,6 +36,14 @@
             android:label="@string/title_activity_main2"
             android:parentActivityName=".activity.HomeActivity"
             android:theme="@style/MyMaterialTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="senanayake.udayanga.com.bustime.activity.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".activity.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="senanayake.udayanga.com.bustime.activity.HomeActivity" />
