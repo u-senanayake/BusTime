@@ -3,12 +3,12 @@
     package="senanayake.udayanga.com.bustime">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
         <activity android:name=".activity.EditRouteActivity" />
@@ -33,7 +33,7 @@
         </activity>
         <activity
             android:name=".activity.AddTimeActivity"
-            android:label="@string/title_activity_main2"
+            android:label="@string/title_activity_add_time"
             android:parentActivityName=".activity.HomeActivity"
             android:theme="@style/MyMaterialTheme">
             <meta-data
@@ -44,6 +44,15 @@
             android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".activity.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="senanayake.udayanga.com.bustime.activity.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".activity.ExportDataActivity"
+            android:label="@string/title_activity_export_data"
+            android:parentActivityName=".activity.HomeActivity"
+            android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="senanayake.udayanga.com.bustime.activity.HomeActivity" />

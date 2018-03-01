@@ -186,13 +186,14 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_export) {
-            // Handle the camera action
+            Intent intent = new Intent(HomeActivity.this, ExportDataActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_import) {
 
         } else if (id == R.id.nav_upload) {
 
         } else if (id == R.id.nav_settings) {
-            Intent intent= new Intent(HomeActivity.this, SettingsActivity.class);
+            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_share) {
