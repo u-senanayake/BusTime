@@ -2,17 +2,31 @@ package senanayake.udayanga.com.bustime.activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import au.com.bytecode.opencsv.CSVWriter;
 import senanayake.udayanga.com.bustime.R;
+import senanayake.udayanga.com.bustime.adapter.DBHelper;
 
 public class ExportDataActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_FILE = 0;
@@ -85,6 +99,36 @@ public class ExportDataActivity extends AppCompatActivity {
 
     private void exportData() {
         Toast.makeText(ExportDataActivity.this, "Exporting data", Toast.LENGTH_SHORT).show();
+
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddHHmmss");
+        dateFormatter.setLenient(false);
+        String dateS = dateFormatter.format(date);
+        File dbFile = getDatabasePath("bus_time");
+        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        File exportDir = new File(Environment.getExternalStorageDirectory(), "/BusTime/");
+        if (!exportDir.exists()) {
+            exportDir.mkdirs();
+        }
+        File file = new File(exportDir, dateS + "bus_time.csv");
+        try {
+            file.createNewFile();
+            CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            Cursor cursorCSV = db.rawQuery("select * from bus_time", null);
+            csvWrite.writeNext(cursorCSV.getColumnNames());
+            while (cursorCSV.moveToNext()) {
+                String arrStr[] = {cursorCSV.getString(0), cursorCSV.getString(1), cursorCSV.getString(2)};
+                csvWrite.writeNext(arrStr);
+
+            }
+            csvWrite.close();
+            cursorCSV.close();
+            Toast.makeText(ExportDataActivity.this, "Data exported to /BusTime/ successfully ", Toast.LENGTH_SHORT).show();
+
+        } catch (IOException e) {
+            Log.e("MainActivity", e.getMessage(), e);
+        }
     }
 
 }
