@@ -1,7 +1,9 @@
 package senanayake.udayanga.com.bustime.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -93,9 +95,26 @@ public class EditRouteActivity extends AppCompatActivity {
     }
 
     private void deleteRoute() {
-        helper.deleteContact(id);
-        Toast.makeText(this, "Route deleting success", Toast.LENGTH_SHORT).show();
-        goHome();
+        new AlertDialog.Builder(this)
+                .setTitle("Do you want to delete this route?")
+                .setMessage("This route will be delete and cannot undo.  ")
+                .setIcon(getResources().getDrawable(android.R.drawable.ic_dialog_alert))
+                .setPositiveButton(getResources().getString(R.string.delete_yes),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                helper.deleteContact(id);
+//                                Toast.makeText(this, "Route deleting success", Toast.LENGTH_SHORT).show();
+                                goHome();
+                            }
+                        })
+                .setNegativeButton(getResources().getString(R.string.delete_no),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                goHome();
+                            }
+                        }).show();
     }
 
     private void goHome() {

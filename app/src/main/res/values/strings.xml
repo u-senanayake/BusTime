@@ -6,6 +6,10 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
+    <string name="delete_yes">Yes</string>
+    <string name="delete_no">No</string>
+
+
     <string name="nav_item_home">Home</string>
     <string name="radio_current_place">My Location</string>
     <string name="radio_from_to">From To</string>
