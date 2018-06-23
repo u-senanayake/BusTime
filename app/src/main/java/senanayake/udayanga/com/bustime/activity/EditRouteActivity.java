@@ -3,14 +3,13 @@ package senanayake.udayanga.com.bustime.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import senanayake.udayanga.com.bustime.adapter.DBHelper;
 import senanayake.udayanga.com.bustime.R;
+import senanayake.udayanga.com.bustime.adapter.DBHelper;
 import senanayake.udayanga.com.bustime.model.Route;
 
 public class EditRouteActivity extends AppCompatActivity {
@@ -73,7 +72,6 @@ public class EditRouteActivity extends AppCompatActivity {
     }
 
     private void updateRoute() {
-        Log.d(TAG, "Updating route");
         editRoute = findViewById(R.id.editRoute);
         editLocation = findViewById(R.id.editLocation);
         editFrom = findViewById(R.id.editFrom);
@@ -95,14 +93,13 @@ public class EditRouteActivity extends AppCompatActivity {
     }
 
     private void deleteRoute() {
-        Log.d(TAG, "Updating route");
         helper.deleteContact(id);
         Toast.makeText(this, "Route deleting success", Toast.LENGTH_SHORT).show();
         goHome();
     }
 
-    private void goHome(){
-        Intent intent= new Intent(this, HomeActivity.class);
+    private void goHome() {
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
 }

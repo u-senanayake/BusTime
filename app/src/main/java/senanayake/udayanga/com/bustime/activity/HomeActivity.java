@@ -188,15 +188,20 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_export) {
             Intent intent = new Intent(HomeActivity.this, ExportDataActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_import) {
+        }
+//        else if (id == R.id.nav_import) {
 
-        } else if (id == R.id.nav_upload) {
+//        }
+        else if (id == R.id.nav_upload) {
 
-        } else if (id == R.id.nav_settings) {
-            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_share) {
+        }
+//        else if (id == R.id.nav_settings) {
+//            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+//            startActivity(intent);
+//
+//        }
+        else if (id == R.id.nav_share) {
+            shareApp();
 
         } else if (id == R.id.nav_rate) {
 
@@ -205,5 +210,13 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    private void shareApp(){
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        String shareBody = "Keep your bus time with you";
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "My Bus Routes");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 }

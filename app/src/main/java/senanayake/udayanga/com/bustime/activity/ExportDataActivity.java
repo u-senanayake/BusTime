@@ -14,7 +14,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -141,7 +140,6 @@ public class ExportDataActivity extends AppCompatActivity {
             Uri uri;
             if (resultData != null) {
                 uri = resultData.getData();
-                Log.i("Export", "Uri: " + uri.toString());
                 importData(uri);
             }
         }
@@ -150,7 +148,6 @@ public class ExportDataActivity extends AppCompatActivity {
     private void importData(Uri uri) {
         Toast.makeText(ExportDataActivity.this, "Importing data", Toast.LENGTH_SHORT).show();
 
-        Log.d("Importing", uri.getPath());
         try {
             InputStream inputStream = getContentResolver().openInputStream(uri);
             BufferedReader reader = new BufferedReader(new InputStreamReader(
@@ -208,21 +205,23 @@ public class ExportDataActivity extends AppCompatActivity {
         File file = new File(exportDir, dateS + "bus_time.csv");
         try {
             file.createNewFile();
-            CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
+            CSVWriter csvWrite = new CSVWriter(new FileWriter(file),
+                    CSVWriter.DEFAULT_SEPARATOR,
+                    CSVWriter.NO_QUOTE_CHARACTER,
+                    CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                    CSVWriter.DEFAULT_LINE_END);
             SQLiteDatabase db = dbHelper.getReadableDatabase();
             Cursor cursorCSV = db.rawQuery("select * from bus_time", null);
-            csvWrite.writeNext(cursorCSV.getColumnNames());
+            //csvWrite.writeNext(cursorCSV.getColumnNames());
             while (cursorCSV.moveToNext()) {
                 String arrStr[] = {cursorCSV.getString(0), cursorCSV.getString(1), cursorCSV.getString(2), cursorCSV.getString(3), cursorCSV.getString(4), cursorCSV.getString(5)};
                 csvWrite.writeNext(arrStr);
-
             }
             csvWrite.close();
             cursorCSV.close();
             Toast.makeText(ExportDataActivity.this, "Data exported to /BusTime/ successfully ", Toast.LENGTH_SHORT).show();
 
         } catch (IOException e) {
-            Log.e("MainActivity", e.getMessage(), e);
         }
     }
 

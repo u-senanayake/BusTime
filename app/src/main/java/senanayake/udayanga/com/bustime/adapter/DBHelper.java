@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        Log.d(TAG, "Creating table...");
         String createTable = "CREATE TABLE " + tableName + " ( " +
                 keyId + " INTEGER PRIMARY KEY, " +
                 keyAddedPlace + " TEXT, " +
@@ -47,7 +45,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 keyTime + " TEXT, " +
                 keyRoute + " INTEGER)";
         sqLiteDatabase.execSQL(createTable);
-        Log.d(TAG, "Table successfully created");
     }
 
     @Override
@@ -57,7 +54,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void addRoute(Route route) {
-        Log.d(TAG, "Inserting new route to database");
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(keyAddedPlace, route.getPlaceAdded());
@@ -67,7 +63,6 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(keyTime, route.getTime());
         database.insert(tableName, null, values);
         database.close();
-        Log.d(TAG, "New route adding success");
 
     }
 
@@ -116,7 +111,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<Route> getRoutesByAddedLocation(String from, String to) {
         ArrayList<Route> routeList = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + tableName + " where " + keyAddedPlace + " = " + "'" + from + "' ORDER BY " + keyTo + " ASC";
-        Log.d(TAG, "Executing Query " + selectQuery);
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
 
@@ -140,7 +134,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<Route> getRoutesByFromLocation(String from, String to) {
         ArrayList<Route> routeList = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + tableName + " where " + keyFrom + " = " + "'" + from + "' ORDER BY " + keyTo + " ASC";
-        Log.d(TAG, "Executing Query " + selectQuery);
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
 
@@ -167,7 +160,6 @@ public class DBHelper extends SQLiteOpenHelper {
         List<String> locations = new ArrayList<String>();
         int i = 0;
         while (cursor.moveToNext()) {
-            Log.d(TAG, String.valueOf(cursor.getColumnIndex(keyAddedPlace)));
             locations.add(cursor.getString(cursor.getColumnIndex(keyAddedPlace)));
             i++;
         }
@@ -182,7 +174,6 @@ public class DBHelper extends SQLiteOpenHelper {
         List<String> locations = new ArrayList<String>();
         int i = 0;
         while (cursor.moveToNext()) {
-            Log.d(TAG, String.valueOf(cursor.getColumnIndex(keyFrom)));
             locations.add(cursor.getString(cursor.getColumnIndex(keyFrom)));
             i++;
         }
@@ -202,6 +193,49 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return locations;
     }
+  /*  public List<String> getToAddedPlaces() {
+        String selectQuery = "SELECT  * FROM " + tableName + " GROUP BY " + keyAddedPlace;
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        List<String> locations = new ArrayList<String>();
+        int i = 0;
+        while (cursor.moveToNext()) {
+            locations.add(cursor.getString(cursor.getColumnIndex(keyAddedPlace)));
+            i++;
+        }
+        return locations;
+    }*/
+    /*public List<String> getAllPlaces() {
+        List<String> locations = new ArrayList<String>();
+        SQLiteDatabase database = this.getWritableDatabase();
+        //Get to places
+        String query1 = "SELECT  * FROM " + tableName + " GROUP BY " + keyTo;
+        Cursor cursor = database.rawQuery(query1, null);
+        int i1 = 0;
+        while (cursor.moveToNext()) {
+            locations.add(cursor.getString(cursor.getColumnIndex(keyTo)));
+            i1++;
+        }
+
+
+        String query2 = "SELECT  * FROM " + tableName + " GROUP BY " + keyFrom;
+        Cursor cursor2 = database.rawQuery(query2, null);
+        int i2 = 0;
+        while (cursor2.moveToNext()) {
+            locations.add(cursor.getString(cursor.getColumnIndex(keyTo)));
+            i2++;
+        }
+
+        String query3 = "SELECT  * FROM " + tableName + " GROUP BY " + keyFrom;
+        Cursor cursor3 = database.rawQuery(query3, null);
+        int i = 0;
+        while (cursor3.moveToNext()) {
+            locations.add(cursor.getString(cursor.getColumnIndex(keyFrom)));
+            i++;
+        }
+        return locations;
+    }*/
 
     public int updateRoute(Route route) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -225,4 +259,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(id)});
         db.close();
     }
+
+
 }

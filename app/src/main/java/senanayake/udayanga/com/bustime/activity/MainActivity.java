@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -22,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     String TAG = "View time";
     private DataAdapter adapter;
     String keyId = "id", keyPlaceAdded = "placeAdded", keyFrom = "from", keyTo = "to", keyRoute = "route", keyTime = "time";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         String radioId = intent.getStringExtra("selectedName");
         String fromLocation = intent.getStringExtra("fromLocation");
         String toLocation = intent.getStringExtra("toLocation");
-        Log.d(TAG, "Searching routs from " + fromLocation + " to " + toLocation + String.valueOf(radioId));
 
 //        getRoutes(radioId, fromLocation, toLocation);
 
@@ -45,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
     private ArrayList<Route> getData(String radioId, String from, String to) {
         ArrayList<Route> routes = helper.getAllRoutes();
         if (Objects.equals(radioId, "My Location")) {

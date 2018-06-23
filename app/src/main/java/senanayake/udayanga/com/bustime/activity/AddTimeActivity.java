@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -12,6 +14,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.List;
 
 import senanayake.udayanga.com.bustime.R;
 import senanayake.udayanga.com.bustime.adapter.DBHelper;
@@ -19,11 +22,14 @@ import senanayake.udayanga.com.bustime.model.Route;
 
 public class AddTimeActivity extends AppCompatActivity {
     Button timePicker, btnSubmit;
-    EditText txtTime, txtPlaceAdded, txtFrom, txtTo, txtRoute;
+    EditText txtTime, txtRoute;
     CheckBox checkHoliday;
     int mHour, mMinute;
+    AutoCompleteTextView txtFrom, txtTo, txtPlaceAdded;
+
 
     DBHelper helper = new DBHelper(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +39,11 @@ public class AddTimeActivity extends AppCompatActivity {
 
         timePicker = findViewById(R.id.timePicker);
         txtTime = findViewById(R.id.textTime);
+
+        fillSpinnerFrom(helper.getFromLocations());
+        fillSpinnerTo(helper.getToLocations());
+        fillSpinnerPlace(helper.getAddedLocations());
+
         timePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +71,28 @@ public class AddTimeActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+    public void fillSpinnerFrom(List<String> locations) {
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, locations);
+        txtFrom = findViewById(R.id.txtFrom);
+        txtFrom.setAdapter(dataAdapter);
+
+    }
+
+    public void fillSpinnerTo(List<String> locations) {
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, locations);
+        txtTo = findViewById(R.id.txtTo);
+        txtTo.setAdapter(dataAdapter);
+
+    }
+
+    public void fillSpinnerPlace(List<String> locations) {
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, locations);
+        txtPlaceAdded = findViewById(R.id.txtPlaceAdded);
+        txtPlaceAdded.setAdapter(dataAdapter);
+
+    }
+
     public void addRoute() {
         txtPlaceAdded = findViewById(R.id.txtPlaceAdded);
         txtFrom = findViewById(R.id.txtFrom);

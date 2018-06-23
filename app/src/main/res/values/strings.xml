@@ -96,11 +96,11 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
-    <string name="title_activity_export_data">ExportDataActivity</string>
+    <string name="title_activity_export_data">Import/Export Data</string>
     <string name="camera_access">Permission Need</string>
-    <string name="permision_available">Permision Available</string>
+    <string name="permision_available">Permission Available</string>
     <string name="ok">Access OK</string>
-    <string name="file_permission_granted">File Permision Granted</string>
-    <string name="file_permission_denied">File Permision Denied</string>
+    <string name="file_permission_granted">File Permission Granted</string>
+    <string name="file_permission_denied">File Permission Denied</string>
 
 </resources>

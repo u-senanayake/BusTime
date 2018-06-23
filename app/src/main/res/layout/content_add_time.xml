@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="senanayake.udayanga.com.bustime.activity.AddTimeActivity"
-    tools:showIn="@layout/activity_add_time"
-    android:background="@color/background"
-    >
+    tools:showIn="@layout/activity_add_time">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,26 +31,29 @@
                 android:orientation="vertical"
                 android:padding="10dp">
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/txtPlaceAdded"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
-                    android:hint="Place added" />
+                    android:hint="Place added"
+                    tools:ignore="LabelFor" />
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/txtFrom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
-                    android:hint="From" />
+                    android:hint="From"
+                    tools:ignore="LabelFor" />
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/txtTo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
-                    android:hint="To" />
+                    android:hint="To"
+                    tools:ignore="LabelFor" />
 
                 <EditText
                     android:id="@+id/txtRoute"
