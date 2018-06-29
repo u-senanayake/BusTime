@@ -26,10 +26,13 @@ public class EditRouteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_route);
+
         fillValues();
+
         updateRoute = findViewById(R.id.updateRoute);
         deleteRoute = findViewById(R.id.deleteRoute);
         cancelRoute = findViewById(R.id.cancelRoute);
+
         updateRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
